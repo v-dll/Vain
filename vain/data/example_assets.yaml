@@ -1,0 +1,24 @@
+# Asset criticality map (assets plugin). Pass it with --assets.
+#
+# Findings on important machines are escalated, findings on low-value ones are
+# downgraded. The most specific match wins (exact IP > hostname > smaller CIDR).
+#
+# criticality multipliers: CRITICAL x1.5   HIGH x1.25   MEDIUM x1.0   LOW x0.6   MINIMAL x0.4
+# Example: a MEDIUM finding on a CRITICAL asset becomes HIGH; a HIGH finding on
+# a LOW asset becomes MEDIUM.
+
+version: "1.0"
+default_criticality: MEDIUM
+assets:
+  - match: 192.168.1.10
+    name: Domain Controller
+    criticality: CRITICAL
+  - match: 192.168.1.0/28
+    name: Core servers
+    criticality: HIGH
+  - match: "db-*.corp.example"   # hostname glob (uses the name Nmap resolved)
+    name: Production databases
+    criticality: CRITICAL
+  - match: 192.168.50.0/24
+    name: Guest Wi-Fi
+    criticality: LOW

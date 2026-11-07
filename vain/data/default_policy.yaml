@@ -1,0 +1,57 @@
+# Vain security baseline (policy plugin).
+# Copy this file (`vain init` does it for you), edit it, and pass it with --policy.
+#
+# severity: INFO | LOW | MEDIUM | HIGH | CRITICAL
+# scope (optional on any rule): list of IPs / CIDR blocks / hostname globs the
+#        rule applies to. Leave it out to apply to every scanned host.
+# remediation: shown in the terminal and in the "How to fix" column of the report.
+#              Text in 'single quotes' or `backticks` is shown as a command.
+
+version: "1.0"
+rules:
+
+  # Ports that must NOT be open.
+  forbidden_ports:
+    - port: 23
+      severity: CRITICAL
+      description: "Telnet sends passwords and data in clear text."
+      remediation: "Run 'systemctl disable --now telnet.socket' and use OpenSSH instead."
+    - port: 21
+      severity: HIGH
+      description: "FTP sends credentials in clear text."
+      remediation: "Replace FTP with SFTP (OpenSSH) or FTPS, and disable the FTP service."
+    - port: 512
+      severity: HIGH
+      description: "rexec (r-services) is unencrypted and legacy."
+      remediation: "Disable the r-services and use SSH."
+    - port: 513
+      severity: HIGH
+      description: "rlogin (r-services) is unencrypted and legacy."
+      remediation: "Disable the r-services and use SSH."
+    - port: 514
+      severity: HIGH
+      description: "rsh (r-services) is unencrypted and legacy."
+      remediation: "Disable the r-services and use SSH."
+    - port: 2375
+      severity: CRITICAL
+      description: "Unauthenticated Docker API gives root-equivalent control of the host."
+      remediation: "Do not expose the Docker socket over TCP. Use 'dockerd' with TLS (port 2376) or an SSH tunnel."
+
+  # Ports that MUST be open (uncomment and adjust; use `scope` to limit to servers).
+  required_ports: []
+  #  - port: 22
+  #    severity: MEDIUM
+  #    description: "Servers must be reachable over SSH for administration."
+  #    remediation: "Install and enable OpenSSH: 'sudo apt install openssh-server'."
+  #    scope: ["10.0.10.0/24"]
+
+  # Minimum software versions. `service` is matched (case-insensitive) against
+  # the product/service name Nmap detected. NOTE: banner versions can be
+  # misleading because Linux distributions often back-port fixes without
+  # changing the version number. Treat these findings as "verify", not proof.
+  version_checks:
+    - service: "OpenSSH"
+      min_version: "8.0"
+      severity: MEDIUM
+      description: "OpenSSH older than 8.0 is end-of-life and misses years of security fixes."
+      remediation: "Update the openssh-server package ('sudo apt update && sudo apt upgrade openssh-server')."

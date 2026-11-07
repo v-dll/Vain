@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+build/
+dist/
+.vain/
+.ruff_cache/
+.env
+*.db
+*.sqlite
+last_scan.json
+.DS_Store
+# real asset/policy files with your own IPs
+config/*.local.yaml
+# scan output you probably don't want to commit
+report.html
+vain-findings.*
+*.xml
+!tests/fixtures/*.xml

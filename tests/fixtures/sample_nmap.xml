@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94 scan initiated Mon Nov  2 10:00:00 2026 as: nmap -oX - -sV 192.168.1.0/28 -->
+<nmaprun scanner="nmap" args="nmap -oX - -sV --open 192.168.1.10 192.168.1.20" start="1793613600" startstr="Mon Nov  2 10:00:00 2026" version="7.94" xmloutputversion="1.05">
+<host starttime="1793613601" endtime="1793613650">
+<status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.1.10" addrtype="ipv4"/>
+<address addr="AA:BB:CC:DD:EE:FF" addrtype="mac" vendor="Example"/>
+<hostnames><hostname name="dc01.corp.example" type="PTR"/></hostnames>
+<ports>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="7.4p1 Debian 10+deb9u7" extrainfo="protocol 2.0" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:7.4p1</cpe></service></port>
+<port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="telnet" product="Linux telnetd" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="vsftpd" version="3.0.3" method="probed" conf="10"><cpe>cpe:/a:vsftpd_project:vsftpd:3.0.3</cpe></service>
+<script id="ftp-anon" output="Anonymous FTP login allowed (FTP code 230)"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.4.41" extrainfo="(Ubuntu)" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.41</cpe></service>
+<script id="http-vuln-cve2017-5638" output="&#10;  VULNERABLE:&#10;  Apache Struts Remote Code Execution&#10;    State: VULNERABLE&#10;    IDs:  CVE:CVE-2017-5638&#10;"/></port>
+</ports>
+<os><osmatch name="Linux 4.15 - 5.8" accuracy="96" line="1"/></os>
+</host>
+<host starttime="1793613601" endtime="1793613650">
+<status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.1.20" addrtype="ipv4"/>
+<hostnames/>
+<ports>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="8.9p1 Ubuntu 3ubuntu0.4" extrainfo="Ubuntu Linux; protocol 2.0" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:8.9p1</cpe></service></port>
+</ports>
+</host>
+<runstats><finished time="1793613700" timestr="Mon Nov  2 10:01:40 2026" elapsed="100.00" summary="Nmap done" exit="success"/><hosts up="2" down="0" total="2"/></runstats>
+</nmaprun>
